@@ -48,6 +48,7 @@ public class CharacterBatchJob {
                 doc.setOrigin(api.getOrigin().getName());
                 doc.setLastLocation(api.getLocation().getName());
                 doc.setEpisodesCount(api.getEpisode().size());
+                doc.setImage(api.getImage());
 
                 repository.save(doc);
             });

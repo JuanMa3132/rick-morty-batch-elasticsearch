@@ -16,4 +16,5 @@ public class CharacterDocument {
     private String origin;
     private String lastLocation;
     private int episodesCount;
+    private String image;
 }

@@ -1,34 +1,41 @@
-const button = document.getElementById("loadBtn");
-const list = document.getElementById("characters");
+const grid = document.getElementById("charactersGrid")
+const searchInput = document.getElementById("searchInput")
 
-if (!button || !list) {
-    console.error("No se encontraron los elementos del DOM");
+let characters = [];
+
+fetch("http://localhost:8080/api/characters")
+    .then(res => res.json())
+    .then(data => {
+        characters = data;
+        renderCharacters(characters);
+    })
+.catch(error => console.error("Error cargando personajes", err));
+
+function renderCharacters(list) {
+    grid.innerHTML = "";
+
+    list.forEach(char => {
+        const card = document.createElement("div");
+        card.className = "card";
+
+        card.innerHTML = `
+        <img src ="${char.image}" alt="${char.name}" />
+        <div class="card-content">
+        <h3>${char.name}</h3>
+        <p>${char.species}</p>
+        <p>${char.status}</p>
+        </div>
+        `;
+
+        grid.appendChild(card);
+    });
 }
 
-button.addEventListener("click", () => {
+searchInput.addEventListener("input", (e) => {
+    const text = e.target.value.toLowerCase();
 
-    fetch("/api/characters")
-        .then(res => res.json())
-        .then(data => {
+    const filtered = characters.filter (c => c.name.toLowerCase().includes(text)
+    );
 
-            console.log("RESPUESTA:", data);
-
-            const characters = Array.isArray(data)
-                ? data
-                : data.content;
-
-            if (!characters) {
-                throw new Error("Formato de respuesta inválido");
-            }
-
-            list.innerHTML = "";
-
-            characters.forEach(c => {
-                const li = document.createElement("li");
-                li.textContent = `${c.name} - ${c.species} (${c.status})`;
-                list.appendChild(li);
-            });
-
-        })
-        .catch(err => console.error("Error cargando personajes:", err));
-});
+    renderCharacters(filtered);
+})

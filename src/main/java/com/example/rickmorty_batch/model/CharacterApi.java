@@ -13,6 +13,7 @@ public class CharacterApi {
     private Origin origin;
     private Location location;
     private List<String> episode;
+    private String image;
 
     @Data
     public static class Origin {
