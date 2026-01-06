@@ -1,4 +1,4 @@
-# Rick and Morty Batch con Elasticsearch
+# Rick and Morty Batch Buscador de Personajes
 
 Proyecto full-stack que implementa un **proceso batch en Spring Boot** para consumir la API pública de Rick and Morty, **indexar todos los personajes en Elasticsearch** y exponerlos mediante un **backend REST**, el cual es consumido por un **frontend en JavaScript (Vanilla JS)**.
 
